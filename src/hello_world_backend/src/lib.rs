@@ -21,12 +21,16 @@ fn matching(a: i32,b:i32) -> String {
 }
 
 #[query]
-fn condtion(a:i32)->String{
+fn condtion(number:i32)->String{
 
-    if a < 5 {
-        format!("condition was true")
+    if number % 4 == 0 {
+        format!("number is divisible by 4")
+    } else if number % 3 == 0 {
+        format!("number is divisible by 3")
+    } else if number % 2 == 0 {
+        format!("number is divisible by 2")
     } else {
-        format!("condition was false")
+        format!("number is not divisible by 4, 3, or 2")
     }
 }
 
