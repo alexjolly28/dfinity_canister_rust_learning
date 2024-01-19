@@ -7,6 +7,7 @@ fn hello(name: String) -> String {
     format!("Hello, {}!", name)
 }
 
+
 #[query]
 fn matching(a: i32,b:i32) -> String {
 
@@ -19,6 +20,15 @@ fn matching(a: i32,b:i32) -> String {
 
 }
 
+#[query]
+fn condtion(a:i32)->String{
+
+    if a < 5 {
+        format!("condition was true")
+    } else {
+        format!("condition was false")
+    }
+}
 
 
 // Generate did files
