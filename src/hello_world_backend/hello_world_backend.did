@@ -1,3 +1,4 @@
 service : {
-    "greet": (text) -> (text) query;
+  hello : (text) -> (text) query;
+  matching : (int32, int32) -> (text) query;
 }
