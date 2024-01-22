@@ -1,5 +1,6 @@
 service : {
   condtion : (int32) -> (text) query;
   hello : (text) -> (text) query;
+  loop1 : () -> (text) query;
   matching : (int32, int32) -> (text) query;
 }
