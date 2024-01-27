@@ -1,0 +1,17 @@
+{
+  "canisters": {
+    "struct_example": {
+      "candid": "struct_example.did",
+      "package": "struct_example",
+      "type": "rust"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

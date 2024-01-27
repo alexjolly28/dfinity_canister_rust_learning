@@ -1,0 +1,4 @@
+service : {
+  can_hold : (nat32, nat32) -> (text) query;
+  get_area : (nat32, nat32) -> (text) query;
+}
