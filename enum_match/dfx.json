@@ -1,0 +1,17 @@
+{
+  "canisters": {
+    "enum_example": {
+      "candid": "enum_example.did",
+      "package": "enum_example",
+      "type": "rust"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

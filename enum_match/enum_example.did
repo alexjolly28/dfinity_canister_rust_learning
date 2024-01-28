@@ -1,0 +1,6 @@
+type MathOperation = variant {
+  Add : record { int32; int32 };
+  Multiply : record { int32; int32 };
+  Subtract : record { int32; int32 };
+};
+service : { perform_math_operation : (MathOperation) -> (int32) query }
