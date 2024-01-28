@@ -2,7 +2,7 @@ use ic_cdk_macros::{query, export_candid};
 use ic_cdk::export::candid::{CandidType, Deserialize};
 
 
-#[derive(Clone, CandidType, Deserialize)]
+#[derive(CandidType, Deserialize)]
 struct Rectangle{
     width : u32,
     height : u32
