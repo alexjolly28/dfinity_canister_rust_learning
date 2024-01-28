@@ -1,4 +1,5 @@
+type Rectangle = record { height : nat32; width : nat32 };
 service : {
-  can_hold : (nat32, nat32) -> (text) query;
-  get_area : (nat32, nat32) -> (text) query;
+  can_hold : (Rectangle) -> (text) query;
+  get_area : (Rectangle) -> (text) query;
 }

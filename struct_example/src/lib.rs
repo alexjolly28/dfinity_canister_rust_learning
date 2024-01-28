@@ -1,7 +1,8 @@
 use ic_cdk_macros::{query, export_candid};
+use ic_cdk::export::candid::{CandidType, Deserialize};
 
 
-
+#[derive(Clone, CandidType, Deserialize)]
 struct Rectangle{
     width : u32,
     height : u32
@@ -27,25 +28,18 @@ impl Rectangle {
 }
 
 #[query]
-fn get_area(width: u32,height: u32) -> String {
-    let rectangle=Rectangle{
-        width:width,
-        height:height
-    };
+fn get_area(rectangle:Rectangle) -> String {
+
 
     format!("The area of the rectangle is {} square pixels.",rectangle.area())
 }
 
 #[query]
-fn can_hold(width: u32,height: u32) -> String {
-    let rectangle1=Rectangle{
-        width:width,
-        height:height
-    };
+fn can_hold(rectangle:Rectangle) -> String {
 
-    let rectangle2 =  Rectangle::square(30);
+    let rectangle1 =  Rectangle::square(30);
 
-    format!("Can rectangle hold \"{}\" ",rectangle1.can_hold(&rectangle2))
+    format!("Can rectangle hold \"{}\" ",rectangle.can_hold(&rectangle1))
 }
 
 // Generate did files
