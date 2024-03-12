@@ -1,0 +1,6 @@
+type Result = variant { Ok; Err : text };
+service : {
+  get_queue : () -> (vec int32) query;
+  pop : () -> (opt int32);
+  push : (int32) -> (Result);
+}
