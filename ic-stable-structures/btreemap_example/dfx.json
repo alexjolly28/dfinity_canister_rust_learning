@@ -1,0 +1,17 @@
+{
+  "canisters": {
+    "btreemap_example_backend": {
+      "candid": "src/btreemap_example_backend/btreemap_example_backend.did",
+      "package": "btreemap_example_backend",
+      "type": "rust"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

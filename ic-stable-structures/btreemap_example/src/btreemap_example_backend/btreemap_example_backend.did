@@ -1,0 +1,6 @@
+service : {
+  get_heap_data : () -> (vec nat8) query;
+  set_heap_data : (vec nat8) -> ();
+  stable_get : (nat) -> (opt nat) query;
+  stable_insert : (nat, nat) -> (opt nat);
+}
