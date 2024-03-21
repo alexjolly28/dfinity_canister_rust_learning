@@ -1,10 +1,13 @@
-use candid::{CandidType, Deserialize, Principal, Decode, Encode};
-use ic_cdk_macros::{update, query};
-use ic_stable_structures::{Storable, storable::Bound};
-use std::{collections::HashMap, time::Duration};
+use crate::{
+    state::STATE,
+    utils::{self, update_storage, url_generator},
+};
+use candid::{CandidType, Decode, Deserialize, Encode, Principal};
+use ic_cdk_macros::{query, update};
+use ic_stable_structures::{storable::Bound, Storable};
 use serde::Serialize;
-use crate::{state::STATE, utils::{update_storage, url_generator}};
-
+use std::{collections::HashMap, time::Duration};
+use utils::convert_chunks_to_string;
 #[derive(CandidType, Serialize, Deserialize, Clone)]
 pub struct Asset {
     pub asset_id: u128,
@@ -16,10 +19,10 @@ pub struct Asset {
     pub uploaded_at: u64,
 }
 
-impl Storable for Asset{
+impl Storable for Asset {
     fn from_bytes(bytes: std::borrow::Cow<[u8]>) -> Self {
         Decode!(&bytes, Self).unwrap()
-    } 
+    }
 
     fn to_bytes(&self) -> std::borrow::Cow<[u8]> {
         std::borrow::Cow::Owned(Encode!(&self).unwrap())
@@ -61,11 +64,11 @@ pub struct CommitBatchArgs {
 
 #[update]
 pub fn commit_batch(args: CommitBatchArgs) -> u128 {
-    if args.chunk_ids.len() == 0{
+    if args.chunk_ids.len() == 0 {
         ic_cdk::trap("No ids Provided")
     }
     let caller = ic_cdk::caller();
-    STATE.with(|s|{
+    STATE.with(|s| {
         let mut state = s.borrow_mut();
         let mut chunks_to_commit = vec![];
         let mut chunks_not_found = vec![];
@@ -76,17 +79,17 @@ pub fn commit_batch(args: CommitBatchArgs) -> u128 {
                 None => {
                     ic_cdk::print("No chunk found");
                     chunks_not_found.push(id.clone())
-                },
+                }
                 Some(chunk) if chunk.owned_by != caller => {
                     ic_cdk::print("Chunk not owned");
                     chunks_not_owned.push(id.clone())
-                },
+                }
                 Some(chunk) => {
                     ic_cdk::print("chunk found");
                     chunks_to_commit.push((id.clone(), chunk.order))
-                },
+                }
             });
-        if chunks_to_commit.len() == 0{
+        if chunks_to_commit.len() == 0 {
             ic_cdk::trap("No chunks found")
         }
         if chunks_not_found.len() > 0 {
@@ -115,7 +118,15 @@ pub fn commit_batch(args: CommitBatchArgs) -> u128 {
         }
         let id = state.get_asset_id();
         let url = url_generator(&state.in_prod, &id);
-        let asset = Asset { asset_id: id, file_name: args.file_name, file_type: args.file_type, chunks: content, url, owned_by: caller, uploaded_at: ic_cdk::api::time() };
+        let asset = Asset {
+            asset_id: id,
+            file_name: args.file_name,
+            file_type: args.file_type,
+            chunks: content,
+            url,
+            owned_by: caller,
+            uploaded_at: ic_cdk::api::time(),
+        };
         state.asset_list.insert(id, asset);
         id
     })
@@ -173,5 +184,19 @@ pub fn asset_list() -> HashMap<u128, AssetQuery> {
             .iter()
             .map(|(id, ref asset)| (id.clone(), AssetQuery::from(asset)))
             .collect()
+    })
+}
+
+#[query]
+pub fn read_file(id: u128) -> Option<String> {
+    STATE.with(|s| {
+        let s = s.borrow();
+        match s.asset_list.get(&id) {
+            None => None,
+            Some(asset) => Some(match convert_chunks_to_string(asset.chunks) {
+                Ok(string) => string,
+                Err(e) => format!("error{}", e),
+            }),
+        }
     })
 }

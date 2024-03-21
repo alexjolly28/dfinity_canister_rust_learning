@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/custom_types_example_backend"
+]
+resolver = "2"

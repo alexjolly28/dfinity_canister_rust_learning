@@ -21,7 +21,7 @@ def main():
     network = "local"
     canister_storage = get_canister(canister_name, candid_path, network)
 
-    file_path = Path("tests/files/Rick Astley - Never Gonna Give You Up.mp3")
+    file_path = Path("tests/files/test.txt")
 
     data = read_file_bytes(file_path)
 

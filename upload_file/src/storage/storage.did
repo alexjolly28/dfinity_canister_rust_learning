@@ -54,5 +54,6 @@ service : (bool) -> {
     ) query;
   is_full : () -> (bool) query;
   query_asset : (nat) -> (opt AssetQuery) query;
+  read_file : (nat) -> (opt text) query;
   upload_chunk : (ChunkArgs) -> (nat);
 }

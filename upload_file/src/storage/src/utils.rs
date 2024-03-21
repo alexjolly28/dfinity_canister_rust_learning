@@ -1,3 +1,5 @@
+use std::string::FromUtf8Error;
+
 use ic_cdk::api::management_canister::provisional::CanisterIdRecord;
 
 use crate::state::STATE;
@@ -30,4 +32,10 @@ pub async fn update_storage() {
         let mut s = s.borrow_mut();
         s.used_storage = status.memory_size;
     })
+}
+
+pub fn convert_chunks_to_string(chunks: Vec<Vec<u8>>) -> Result<String, FromUtf8Error> {
+    let concatenated_bytes: Vec<u8> = chunks.into_iter().flatten().collect();
+    let result = String::from_utf8(concatenated_bytes);
+    result
 }
