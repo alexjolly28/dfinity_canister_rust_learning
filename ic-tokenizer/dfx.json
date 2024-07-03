@@ -1,0 +1,24 @@
+{
+  "canisters": {
+    "ic-tokenizer-backend": {
+      "metadata": [
+          {
+            "name": "candid:service"
+          }
+        ],
+      "candid": "src/ic-tokenizer-backend/ic-tokenizer-backend.did",
+      "package": "ic-tokenizer-backend",
+      "type": "custom",
+      "wasm": "target/wasm32-wasi/release/ic_tokenizer_backend.wasm",
+      "build": [ "bash build.sh" ]
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

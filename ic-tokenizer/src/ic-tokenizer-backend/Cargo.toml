@@ -1,0 +1,16 @@
+[package]
+name = "ic-tokenizer-backend"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+candid = "0.10"
+ic-cdk = "0.13"
+ic-stable-structures = "0.6"
+ic-wasi-polyfill = "0.3.17"
+rust_tokenizers = { git = "https://github.com/alexjolly28/rust-tokenizers"}

@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/ic-tokenizer-backend"
+]
+resolver = "2"
