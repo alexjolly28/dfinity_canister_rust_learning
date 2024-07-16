@@ -14,3 +14,9 @@ ic-cdk = "0.13"
 ic-stable-structures = "0.6"
 ic-wasi-polyfill = "0.3.17"
 rust_tokenizers = { git = "https://github.com/alexjolly28/rust-tokenizers"}
+
+[build]
+target = ["wasm32-wasi"]
+
+[target.wasm32-wasi]
+rustflags = ["-Ctarget-feature=+simd128"]
