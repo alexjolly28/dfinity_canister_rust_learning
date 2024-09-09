@@ -13,7 +13,10 @@ candid = "0.10"
 ic-cdk = "0.13"
 ic-stable-structures = "0.6"
 ic-wasi-polyfill = "0.3.17"
-rust_tokenizers = { git = "https://github.com/alexjolly28/rust-tokenizers"}
+rust_tokenizers = { git = "https://github.com/alexjolly28/rust-tokenizers",version = "8.1.2"}
+serde = "1"
+bytes ={version = "1.5.0",features = ["serde"]}
+
 
 [build]
 target = ["wasm32-wasi"]

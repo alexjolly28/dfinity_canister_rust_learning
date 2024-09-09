@@ -1,4 +1,7 @@
-service : {
-    "greet": (text) -> (text) query;
-    "tokenize": (text) ->(vec int64,vec int64)
+type Result = variant { Ok; Err : text };
+type Result_1 = variant { Ok : record { vec int64; vec int32; vec int8 }; Err };
+service : () -> {
+  append_bytes : (blob) -> ();
+  setup_models : () -> (Result);
+  tokenize : (text) -> (Result_1) query;
 }
